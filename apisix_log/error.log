@@ -1,0 +1,59 @@
+2023/06/17 15:52:53 open /tmp/grpc-engine-debug.log: permission denied
+2023/06/17 15:52:53 [warn] 49#49: *6 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 52#52: *4 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 53#53: *7 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 53#53: *7 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 52#52: *4 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 49#49: *6 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 51#51: *2 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 51#51: *2 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 54#54: *8 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 54#54: *8 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 57#57: *1 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 57#57: *1 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 55#55: *3 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 55#55: *3 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 50#50: *5 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 50#50: *5 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 56#56: *9 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 15:52:53 [warn] 56#56: *9 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"limit-conn":true,"syslog":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 open /tmp/grpc-engine-debug.log: permission denied
+2023/06/17 16:01:35 [warn] 51#51: *2 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 51#51: *2 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 49#49: *3 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 55#55: *5 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 49#49: *3 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 55#55: *5 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 52#52: *8 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 52#52: *8 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 50#50: *6 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 50#50: *6 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 53#53: *9 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 53#53: *9 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 57#57: *1 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 57#57: *1 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 54#54: *7 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 54#54: *7 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 56#56: *4 [lua] plugin.lua:202: load(): new plugins: {"serverless-pre-function":true,"pipeline-request":true}, context: init_worker_by_lua*
+2023/06/17 16:01:35 [warn] 56#56: *4 [lua] plugin.lua:252: load_stream(): new plugins: {"syslog":true,"ip-restriction":true,"mqtt-proxy":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 16:06:19 [warn] 51#51: *31369 [lua] plugin.lua:929: encrypt_conf(): failed to get schema for plugin: pipeline-request, client: 172.24.0.1, server: , request: "PUT /apisix/admin/routes/1 HTTP/1.1", host: "127.0.0.1:9180"
+2023/06/17 16:07:46 [warn] 51#51: *40853 [lua] plugin.lua:929: encrypt_conf(): failed to get schema for plugin: serverless-pre-function, client: 172.24.0.1, server: , request: "PUT /apisix/admin/routes/2 HTTP/1.1", host: "127.0.0.1:9180"
+2023/06/17 17:45:13 open /tmp/grpc-engine-debug.log: permission denied
+2023/06/17 17:45:13 [warn] 50#50: *6 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 53#53: *5 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 54#54: *8 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 49#49: *4 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 51#51: *7 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 50#50: *6 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 53#53: *5 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 54#54: *8 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 49#49: *4 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 51#51: *7 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 48#48: *2 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 48#48: *2 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 56#56: *1 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 56#56: *1 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 55#55: *9 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 55#55: *9 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 52#52: *3 [lua] plugin.lua:202: load(): new plugins: {"pipeline-request":true,"serverless-pre-function":true}, context: init_worker_by_lua*
+2023/06/17 17:45:13 [warn] 52#52: *3 [lua] plugin.lua:252: load_stream(): new plugins: {"mqtt-proxy":true,"ip-restriction":true,"syslog":true,"limit-conn":true}, context: init_worker_by_lua*
