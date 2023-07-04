@@ -30,7 +30,8 @@ deployment:
 
 plugins:
   - serverless-pre-function        
-  - pipeline-request              
+  - pipeline-request
+  - proxy-rewrite
 
 plugin_attr:
   prometheus:
