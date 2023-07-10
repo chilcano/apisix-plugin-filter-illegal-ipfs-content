@@ -1,10 +1,4 @@
-# VT API call example
-
-VT_API_KEY="4187ec98ceb9ee92849c10be18cb4b474b33575784799ccfe280f77d1a849e42"
-VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
-VT_URL_TO_CHECK_B64_WO_PAD=$(echo -n $VT_URL_TO_CHECK | base64 -w 0 | sed 's/=//g')
-
-curl --request GET --url https://www.virustotal.com/api/v3/urls/$VT_URL_TO_CHECK_B64_WO_PAD -H "x-apikey: ${VT_API_KEY}" -s | jq .
+# VirusTotal Pass-through API Proxy
 
 
 # Step 1 - Create an upstream for the VT API
@@ -39,10 +33,12 @@ curl http://127.0.0.1:9180/apisix/admin/plugin_configs/4 -H 'X-API-KEY: edd1c9f0
    }
 }'
 
-# ==>> plugin_configs didn't work *********************
-
 
 # Step 3 - Set up a Route for the VT info-url API 
+
+
+## The next route doesn't work because `"plugin_config":4,` is having issues.
+## We have to create routes with all plugin_configs details there.
 
 curl -i http://127.0.0.1:9180/apisix/admin/routes/4 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
@@ -54,9 +50,8 @@ curl -i http://127.0.0.1:9180/apisix/admin/routes/4 -H 'X-API-KEY: edd1c9f034335
    "upstream_id":4
 }'
 
-# ==>> route didn't work because plugin_configs/4 has issues *********************
-
-
+## The next route definition works.
+## Just run next curl cmd and try to make a test call.
 
 curl -i http://127.0.0.1:9180/apisix/admin/routes/4 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
@@ -80,7 +75,24 @@ curl -i http://127.0.0.1:9180/apisix/admin/routes/4 -H 'X-API-KEY: edd1c9f034335
    "upstream_id":4
 }'
 
-# Step 4 - Disable Route
+
+# Step 4 - Test VT API
+
+
+### Keys
+VT_API_KEY="4187ec98ceb9ee92849c10be18cb4b474b33575784799ccfe280f77d1a849e42"
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
+VT_URL_TO_CHECK_B64_WO_PAD=$(echo -n $VT_URL_TO_CHECK | base64 -w 0 | sed 's/=//g')
+
+
+### Testing VT
+curl --request GET --url https://www.virustotal.com/api/v3/urls/$VT_URL_TO_CHECK_B64_WO_PAD -H "x-apikey: ${VT_API_KEY}" -s | jq .
+
+### Testing through APISIX
+curl http://127.0.0.1:9080/ipfs/$VT_URL_TO_CHECK_B64_WO_PAD -s | jq .
+
+
+# Step 5 - Disable Route
 
 curl http://127.0.0.1:9180/apisix/admin/routes/4  -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
@@ -89,9 +101,3 @@ curl http://127.0.0.1:9180/apisix/admin/routes/4  -H 'X-API-KEY: edd1c9f034335f1
     "plugins": {},
     "upstream_id": 4
 }'
-
-
-# Step 5 - Test VT API
-
-curl http://127.0.0.1:9080/ipfs/$VT_URL_TO_CHECK_B64_WO_PAD -s | jq .
-
