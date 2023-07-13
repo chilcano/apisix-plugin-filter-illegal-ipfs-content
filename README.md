@@ -101,32 +101,31 @@ $ sh curl-cmds/2-create-second-route.sh | jq .
 }
 ```
 
-### Step 4. Test the setup
+### Step 4. Test
 
-```sh
-$ curl -s -i http://127.0.0.1:9080/my-credit-cards
+Call the first API to get random data:
+```json
+$ curl -s https://random-data-api.com/api/v2/credit_cards | jq .
 
-HTTP/1.1 200 OK
-Content-Type: text/plain; charset=utf-8
-Transfer-Encoding: chunked
-Connection: keep-alive
-Server: APISIX/3.2.1
-Date: Sat, 17 Jun 2023 16:09:58 GMT
-
-{"id":6304,"credit_card_type":"dankort","credit_card_number":"****-****-****-****","uid":"ae7ed660-26a2-496d-9556-33609c03aecf","credit_card_expiry_date":"2026-06-16"}
+{
+  "id": 8226,
+  "uid": "14b52c87-a188-4247-ac08-17e9f00d401d",
+  "credit_card_number": "1211-1221-1234-2201",
+  "credit_card_expiry_date": "2024-07-11",
+  "credit_card_type": "visa"
+}
 ```
 
-
-Or prettifing the output:
+Now, calling the previous API through APISIX route to mask the `credit_card_number`:
 ```json
 $ curl -s http://127.0.0.1:9080/my-credit-cards | jq .
 
 {
   "id": 9824,
-  "credit_card_expiry_date": "2025-06-16",
   "uid": "3e972a3a-131a-46e3-8dea-9a0bf8ec72aa",
+  "credit_card_number": "****-****-****-****",
   "credit_card_type": "american_express",
-  "credit_card_number": "****-****-****-****"
+  "credit_card_expiry_date": "2025-06-16"
 }
 ```
 

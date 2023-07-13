@@ -5,12 +5,14 @@ name: ipfs-filter-prj
 services:
   apisix:
     image: apache/apisix:latest
+    # image: apache/apisix:${APISIX_IMAGE_TAG:-3.3.0-debian}    ## Used in file-proxy
     restart: always
-    user: root        # 'user: 1000:1000' doesn't work in Ubuntu 22.04, only works 'user: root'
+    user: root        # No used in file-proxy. The 'user: 1000:1000' doesn't work in Ubuntu 22.04/Manjaro 22.1.3, only works 'user: root'.
     volumes:
       - ./apisix_log:/usr/local/apisix/logs
       - ./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro
       - ./custom-plugins:/opt/apisix/plugins:ro
+      - ./openapi.yaml:/usr/local/apisix/conf/openapi.yaml:ro     ## Used in file-proxy example
     depends_on:
       - etcd
     ports:

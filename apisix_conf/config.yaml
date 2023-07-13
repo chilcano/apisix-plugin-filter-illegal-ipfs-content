@@ -29,9 +29,11 @@ deployment:
     timeout: 30                     # 30 seconds
 
 plugins:
-  - serverless-pre-function        
-  - pipeline-request
-  - proxy-rewrite
+  - serverless-pre-function       # Used in 1st ini example
+  - pipeline-request              # Used in 1st ini example
+  - proxy-rewrite                 # Used in Pass-through VT API example
+  - serverless-post-function      # Used in Pass-through VT API example
+  - file-proxy                    # Used in file-proxy example
 
 plugin_attr:
   prometheus:
