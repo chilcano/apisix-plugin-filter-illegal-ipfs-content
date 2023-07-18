@@ -98,6 +98,8 @@ Once done, let's create the Route:
 ```sh
 curl -i http://127.0.0.1:9180/apisix/admin/routes/4 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
+   "name":"vt-proxy-pass-through",
+   "desc":"Simple VT Proxy Pass Through",
    "methods":["GET"],
    "uri":"/vt-check-url/*",
    "plugins":{
@@ -122,12 +124,26 @@ curl -i http://127.0.0.1:9180/apisix/admin/routes/4 -H 'X-API-KEY: edd1c9f034335
 In this case, we are going to check if `VT_URL_TO_CHECK` contains an URL flagged as illegal by VirusTotal.
 
 Now, let's make a call to already created APISIX route:
+
 ```sh
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html" 
+
 curl http://127.0.0.1:9080/vt-check-url/$(echo -n $VT_URL_TO_CHECK | base64 -w 0 | sed 's/=//g') -s | jq .
+
+curl http://127.0.0.1:9080/vt-check-url/$(echo -n $VT_URL_TO_CHECK | base64 -w 0 | sed 's/=//g') -s | jq '.["data"]["attributes"]["last_analysis_stats"]'
+
+{
+  "harmless": 56,
+  "malicious": 19,
+  "suspicious": 1,
+  "undetected": 14,
+  "timeout": 0
+}
 ```
 
 You should see a long json response which means that specified URL has been flagged as illegal.
 Now, if we provide another URL which we know that is not illegal, then you should have this:
+
 ```sh
 VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/new-fresh-cid"
 curl http://127.0.0.1:9080/vt-check-url/$(echo -n $VT_URL_TO_CHECK | base64 -w 0 | sed 's/=//g') -s | jq .

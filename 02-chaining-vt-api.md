@@ -125,6 +125,8 @@ Once done, let's create the Route, but in this case we a re going to use the Ech
 ```sh
 curl -i http://127.0.0.1:9180/apisix/admin/routes/5 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
+   "name":"mock-vt-url-check",
+   "desc":"Mocks checking URL against VT",
    "methods":["GET"],
    "uri":"/api01/*",
    "plugins":{
@@ -274,6 +276,7 @@ And we will get this:
   "uuid": "1058e249-a01d-4083-8279-9c50fd9c8b28"
 }
 ```
+
 Where the URL being used here `"path": "/api/v3/urls/aHR0cHM6Ly9pcGZzLmV0aC5hcmFnb24ubmV0d29yay9pcGZzL2FiY2QxMjM0` corresponds to `https://ipfs.eth.aragon.network/ipfs/abcd1234`:
 
 ```sh
@@ -296,6 +299,8 @@ Once updated, update the previous APISIX route.
 ```sh
 curl -i http://127.0.0.1:9180/apisix/admin/routes/6 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
+   "name":"vt-url-check",
+   "desc":"Checks URL against VT",
    "methods":["GET"],
    "uri":"/api02/*",
    "plugins":{
@@ -340,6 +345,7 @@ Let's to test it. Only for convenience, we are going to pass the URL to check as
 VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/abcd1234"
 
 curl http://127.0.0.1:9080/api02/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CHECK}) -s | jq .
+
 {
   "error": {
     "message": "URL \"aHR0cHM6Ly9pcGZzLmV0aC5hcmFnb24ubmV0d29yay9pcGZzL2FiY2QxMjM0\" not found",
@@ -348,7 +354,7 @@ curl http://127.0.0.1:9080/api02/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CH
 }
 ```
 
-And using a URL flagged as illegal.
+And using an URL flagged as illegal.
 ```sh
 VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
 
@@ -386,6 +392,22 @@ If everything goes well, you should see this:
         },
 ...
 ```
+
+Testing other URLs and parsing the response:
+```sh
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeihaghuxkwboq7367jupfatm2mt5kmviygerp6pfux7ykkstb5vng4/dakwerken.html"
+
+curl http://127.0.0.1:9080/api02/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CHECK}) -s | jq '.["data"]["attributes"]["last_analysis_stats"]'
+
+{
+  "harmless": 57,
+  "malicious": 17,
+  "suspicious": 0,
+  "undetected": 16,
+  "timeout": 0
+}
+```
+
 
 ### Step 4 - Disable the Routes
 
