@@ -8,6 +8,11 @@ apisix:
     ip: "0.0.0.0"
     port: 9092
 
+nginx_config:
+  http:
+    custom_lua_shared_dict:
+      my_shared_dict: 10m    # Specify the size in MB of the shared memory zone (change as needed)
+
 deployment:
   admin:
     allow_admin:               # https://nginx.org/en/docs/http/ngx_http_access_module.html#allow
@@ -35,6 +40,11 @@ plugins:
   - serverless-post-function      # Used in Pass-through VT API example
   - file-proxy                    # Used in file-proxy example
   - server-info
+  - step1-check-local-cache
+  - step2-conditional-call
+  - ipfs-cache-workflow
+  - api1-plugin
+  - api2-plugin
 
 plugin_attr:
   prometheus:

@@ -433,9 +433,17 @@ curl http://127.0.0.1:9180/apisix/admin/routes/6  -H 'X-API-KEY: edd1c9f034335f1
 ## Resources
 
 1. Using VirusTotal - https://www.virustotal.com/
-- APISIX Custom Pipeline-Request Plugin
-   * How-to: https://api7.ai/blog/chaining-api-requests-with-api-gateway
-   * Plugin info: https://github.com/bzp2010/apisix-plugin-pipeline-request
-- APISIX Serverless-Pre-Function Plugin:
-   * Plugin info: https://apisix.apache.org/docs/apisix/2.12/plugins/serverless/
+   - APISIX Custom Pipeline-Request Plugin
+      * How-to: https://api7.ai/blog/chaining-api-requests-with-api-gateway
+      * Plugin info: https://github.com/bzp2010/apisix-plugin-pipeline-request
+   - APISIX Serverless-Pre-Function Plugin:
+      * Plugin info: https://apisix.apache.org/docs/apisix/2.12/plugins/serverless/
 2. Using Maude (based on ClamAV) - https://github.com/allisterb/maude
+3. Other security services to check illegal content:
+   - https://urlscan.io/result/26647355-3e41-4d57-8af0-616e09d14c76/
+   - https://badbits.dwebops.pub/
+4. Lua, OpenResty and Ballerina documentation:
+   - https://openresty.org/en/getting-started.html
+   - https://openresty-reference.readthedocs.io/en/latest/Lua_Nginx_API/
+   - https://ballerina.io/learn/manage-data-persistence-with-bal-persist/
+   - https://apisix.apache.org/docs/general/code-samples/
