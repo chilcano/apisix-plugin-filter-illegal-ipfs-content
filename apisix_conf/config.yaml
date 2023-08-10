@@ -40,6 +40,7 @@ plugins:
   - serverless-post-function      # Used in Pass-through VT API example
   - file-proxy                    # Used in file-proxy example
   - server-info
+  - mocking                       # Used to create mocks
   - step1-check-local-cache
   - step2-conditional-call
   - ipfs-cache-workflow

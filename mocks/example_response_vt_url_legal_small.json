@@ -1,0 +1,15 @@
+{
+  "data": {
+    "attributes": {
+      "url": "https://ipfs.eth.aragon.network/ipfs/QmNxCK5A9yGWP7skEU1h62qgXQNDMBMRv3Kz6RQxXNn6Y4",
+      "last_analysis_stats": {
+        "harmless": 65,
+        "malicious": 7,
+        "suspicious": 1,
+        "undetected": 17,
+        "timeout": 0
+      }
+    },
+    "type": "url"
+  }
+}

@@ -43,6 +43,12 @@ function url_encode() {
 
 # Only invoke url_encode if the script is being executed
 # (rather than sourced).
-if [[ "${BASH_SOURCE[0]}" == "${0}" || "${(%):-%N}" == "${0}" ]]; then
-    url_encode $@
-fi
+# - In bash, the $0 or ${0} will be 'bash'
+
+# This doesn't work in bash, only in zsh
+# if [[ "${BASH_SOURCE[0]}" == "${0}" || "${(%):-%N}" == "${0}" ]]; then
+#     url_encode $@
+# fi
+
+# This works in bash only
+url_encode $@

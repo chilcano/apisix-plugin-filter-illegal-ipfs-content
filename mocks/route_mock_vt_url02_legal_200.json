@@ -1,0 +1,19 @@
+{
+  "uri": "/mock/vt/url02_legal_200",
+  "name": "mock vt url02 legal 200",
+  "methods": ["GET"],
+  "plugins": {
+    "mocking": {
+      "delay": 1,
+      "content_type": "application/json",
+      "response_status": 200,
+      "response_example": "{ \"data\": { \"attributes\": { \"url\": \"https://ipfs.eth.aragon.network/ipfs/QmNxCK5A9yGWP7skEU1h62qgXQNDMBMRv3Kz6RQxXNn6Y4\", \"last_analysis_stats\": { \"harmless\": 65, \"malicious\": 7, \"suspicious\": 1, \"undetected\": 17, \"timeout\": 0 } }, \"type\": \"url\" }}"
+    }
+  },
+  "upstream": {
+    "type": "roundrobin",
+    "nodes": {
+      "127.0.0.1:1980": 1
+    }
+  }
+}

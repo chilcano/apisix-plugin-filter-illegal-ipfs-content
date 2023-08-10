@@ -105,7 +105,8 @@ curl http://127.0.0.1:9080/api/healthcheck -s | jq .
 
 
 ```sh
-VT_API_KEY="4187ec98ceb9ee92849c10be18cb4b474b33575784799ccfe280f77d1a849e42"
+VT_API_KEY="your_vt_api_key"
+
 VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
 
 
@@ -226,6 +227,11 @@ curl http://127.0.0.1:9180/apisix/admin/routes/10 -H 'X-API-KEY: edd1c9f034335f1
    },
    "upstream_id": 8
 }'
+
+
+VT_API_KEY="your_vt_api_key"
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeig2vab5dyxfslradqqcrears2joaijxljtgtdkiykpn7l6uzwkh24/nniOwadd2.html"
 
 curl http://127.0.0.1:9080/apisix03/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CHECK}) -s | jq .
 

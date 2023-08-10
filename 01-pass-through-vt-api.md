@@ -141,8 +141,23 @@ curl http://127.0.0.1:9080/vt-check-url/$(echo -n $VT_URL_TO_CHECK | base64 -w 0
 }
 ```
 
-You should see a long json response which means that specified URL has been flagged as illegal.
-Now, if we provide another URL which we know that is not illegal, then you should have this:
+Let's to check using a legal valid ipfs URL:
+```sh
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/QmNxCK5A9yGWP7skEU1h62qgXQNDMBMRv3Kz6RQxXNn6Y4"
+curl http://127.0.0.1:9080/vt-check-url/$(echo -n $VT_URL_TO_CHECK | base64 -w 0 | sed 's/=//g') -s | jq '.["data"]["attributes"]["last_analysis_stats"]'
+
+{
+  "harmless": 65,
+  "malicious": 7,
+  "suspicious": 1,
+  "undetected": 17,
+  "timeout": 0
+}
+```
+I know this ``VT_URL_TO_CHECK` is a valid url, however VirusTotal returns that some products have flagged it as `phishing` with `harmless": 65`. We can conclude that if `harmless > 65`, then we can consider the url as legal.
+
+
+Now, if we provide another URL which we know that is not illegal, even, it never has been scanned, then you should have this:
 
 ```sh
 VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/new-fresh-cid"
@@ -155,6 +170,8 @@ curl http://127.0.0.1:9080/vt-check-url/$(echo -n $VT_URL_TO_CHECK | base64 -w 0
   }
 }
 ```
+And the header is `404 NOT FOUND`.
+
 
 ### Step 5 - Disable Route
 

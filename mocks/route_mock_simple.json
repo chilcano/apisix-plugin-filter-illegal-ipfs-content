@@ -1,0 +1,61 @@
+{
+    "uri": "/mock/simple",
+    "name": "mock simple",
+    "methods": ["GET"],
+    "plugins": {
+        "mocking": {
+            "delay": 1,
+            "content_type": "application/json",
+            "response_status": 200,
+            "response_schema": {
+                "properties":{
+                    "field0":{
+                        "example":"abcd",
+                        "type":"string"
+                    },
+                    "field1":{
+                        "example":123.12,
+                        "type":"number"
+                    },
+                    "field2":{
+                        "items":{
+                            "type":"string"
+                        },
+                        "type":"array"
+                    },
+                    "field3":{
+                        "properties":{
+                            "field3_1":{
+                                "type":"string"
+                            },
+                            "field3_2":{
+                                "properties":{
+                                    "field3_2_1":{
+                                        "example":true,
+                                        "type":"boolean"
+                                    },
+                                    "field3_2_2":{
+                                        "items":{
+                                            "example":155.55,
+                                            "type":"integer"
+                                        },
+                                        "type":"array"
+                                    }
+                                },
+                                "type":"object"
+                            }
+                        },
+                        "type":"object"
+                    }
+                },
+                "type":"object"
+            }
+        }
+    },
+    "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+            "127.0.0.1:1980": 1
+        }
+    }
+}

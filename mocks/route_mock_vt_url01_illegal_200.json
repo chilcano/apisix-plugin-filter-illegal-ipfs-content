@@ -1,0 +1,19 @@
+{
+  "uri": "/mock/vt/url01_illegal_200",
+  "name": "mock vt url01 illegal 200",
+  "methods": ["GET"],
+  "plugins": {
+    "mocking": {
+      "delay": 1,
+      "content_type": "application/json",
+      "response_status": 200,
+      "response_example": "{\"message\":\"This is a mock response\",\"details\":\"Some additional details\",\"data\":{\"attributes\":{\"url\":\"https://ipfs.eth.aragon.network/ipfs/bafybeihaghuxkwboq7367jupfatm2mt5kmviygerp6pfux7ykkstb5vng4/dakwerken.html\",\"last_analysis_stats\":{\"harmless\":57,\"malicious\":17,\"suspicious\":0,\"undetected\":16,\"timeout\":0}},\"type\":\"url\",\"id\":\"ff5e5ab50a97063b3913f815d1dbfa713ffa5a5732500429e1159c915b51ad57\",\"links\":{\"self\":\"https://www.virustotal.com/api/v3/urls/ff5e5ab50a97063b3913f815d1dbfa713ffa5a5732500429e1159c915b51ad57\"}}}"
+    }
+  },
+  "upstream": {
+    "type": "roundrobin",
+    "nodes": {
+      "127.0.0.1:1980": 1
+    }
+  }
+}
