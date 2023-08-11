@@ -174,15 +174,15 @@ curl http://127.0.0.1:9080/apisix01/$(source curl-cmds/url_encode.sh ${VT_URL_TO
 ```
 
 
-## New implementation all in Python being triggered by single APISIX route
+## /apisix03/* : New implementation all in Python being triggered by single APISIX route
 
 ```sh
 
 curl http://127.0.0.1:9180/apisix/admin/routes/10 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
    "uri": "/apisix03/*",
-   "name": "03-ipfs-url-cache",
-   "desc": "trigger ipfs-url-cache and return verdict",
+   "name": "03 ipfs url cache",
+   "desc": "Trigger ipfs-url-cache and return verdict from 1 URLValidator",
    "methods":["GET"],
    "plugins": {
       "serverless-post-function": {
@@ -240,7 +240,67 @@ curl http://127.0.0.1:9080/apisix03/$(source curl-cmds/url_encode.sh ${VT_URL_TO
 
 
 
+## /apisix04/* :  New implementation all in Python being triggered by single APISIX route
 
+```sh
+
+curl http://127.0.0.1:9180/apisix/admin/routes/11 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
+{
+   "uri": "/apisix04/*",
+   "name": "04 ipfs url cache",
+   "desc": "Trigger ipfs-url-cache and return verdict from multiples URLValidators",
+   "methods":["GET"],
+   "plugins": {
+      "serverless-post-function": {
+         "_meta": {
+            "priority": 10000
+         },
+         "phase": "access",
+         "functions": [
+            "return function(conf, ctx)
+               local core = require(\"apisix.core\")
+               local url = require(\"socket.url\")
+             
+               local upstream_url_ini = ctx.var.upstream_uri
+               local req_uri_real = ctx.var.real_request_uri
+               local splited_uri = core.utils.split_uri(req_uri_real)
+               local last_uri_part_escaped = splited_uri[#splited_uri]
+               local last_uri_part_unescaped = url.unescape(last_uri_part_escaped)
+               local last_uri_part_b64 = ngx.encode_base64(last_uri_part_unescaped)
+               local last_uri_part_b64_escaped = url.escape(last_uri_part_b64)
+
+               local upstream_url_fin = upstream_url_ini .. \"/cache/ipfsurlfull/\" .. last_uri_part_b64_escaped
+               ctx.var.upstream_uri = upstream_url_fin
+
+               ngx.log(ngx.ERR, \"req_uri_real: \" .. req_uri_real)
+               ngx.log(ngx.ERR, \"upstream_url_ini: \" .. upstream_url_ini)
+               ngx.log(ngx.ERR, \"upstream_url_fin: \" .. upstream_url_fin)
+               ngx.log(ngx.ERR, \"last_uri_part_escaped: \" .. last_uri_part_escaped)
+               ngx.log(ngx.ERR, \"last_uri_part_unescaped: \" .. last_uri_part_unescaped)
+               ngx.log(ngx.ERR, \"last_uri_part_b64: \" .. last_uri_part_b64)
+               ngx.log(ngx.ERR, \"last_uri_part_b64_escaped: \" .. last_uri_part_b64_escaped)
+            end"
+         ]
+      },
+      "proxy-rewrite": {
+         "host": "localhost:8002",
+         "uri": "/api/ipfsresources",
+         "scheme": "http"
+      }
+   },
+   "upstream_id": 8
+}'
+
+
+VT_API_KEY="your_vt_api_key"
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
+VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeig2vab5dyxfslradqqcrears2joaijxljtgtdkiykpn7l6uzwkh24/nniOwadd2.html"
+VT_URL_TO_CHECK="holamundo"
+
+curl http://127.0.0.1:9080/apisix04/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CHECK}) -s | jq .
+
+
+```
 
 
 
