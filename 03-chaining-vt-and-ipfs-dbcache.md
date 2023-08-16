@@ -298,8 +298,8 @@ VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeig2vab5dyxfslradqqcr
 VT_URL_TO_CHECK="holamundo"
 
 curl http://127.0.0.1:9080/apisix04/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CHECK}) -s | jq .
-
-
+curl http://127.0.0.1:9080/apisix04/$(source curl-cmds/url_encode.sh "holamundo3") -s | jq .
+curl http://127.0.0.1:9080/apisix04/$(source curl-cmds/url_encode.sh "url02_legal_200") -s | jq .
 ```
 
 
