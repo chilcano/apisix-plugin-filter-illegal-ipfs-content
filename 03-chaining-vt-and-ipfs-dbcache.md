@@ -77,6 +77,32 @@ curl http://127.0.0.1:9180/apisix/admin/upstreams/8 -H "X-API-KEY: edd1c9f034335
    }
 }'
 
+curl http://127.0.0.1:9180/apisix/admin/upstreams/9 -H "X-API-KEY: edd1c9f034335f136f87ad84b625c8f1" -X PUT -d '
+{
+   "name": "IPFS Logger upstream 9",
+   "desc": "IP 192.168.81.16 - Port 8002, wifi 2",
+   "type": "roundrobin",
+   "scheme": "http",
+   "nodes": {
+      "192.168.81.16:8002": 1
+   }
+}'
+
+curl http://127.0.0.1:9180/apisix/admin/upstreams/10 -H "X-API-KEY: edd1c9f034335f136f87ad84b625c8f1" -X PUT -d '
+{
+   "name": "IPFS Logger upstream 10",
+   "desc": "IP 0.0.0.0 - Port 8002 - doesnt work",
+   "type": "roundrobin",
+   "scheme": "http",
+   "nodes": {
+      "0.0.0.0:8002": 1
+   }
+}'
+
+* 0.0.0.0 - this means all IP addresses
+* 192.168.1.217 - IP address assigned through WIFI 1
+* 192.168.81.16 - IP address assigned through WIFI 2
+
 
 # When running locally, the server should be exposed on IP or broadcast network:
 ❯ uvicorn app.main:app --host 192.168.1.217 --port 8002 --reload --env-file .env.ipfslogger_local
@@ -88,11 +114,11 @@ curl http://127.0.0.1:9180/apisix/admin/upstreams/8 -H "X-API-KEY: edd1c9f034335
 
 curl http://127.0.0.1:9180/apisix/admin/routes/7 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
 {
-   "uri": "/api/healthcheck",
-   "upstream_id": 8
+   "uri": "/api/health",
+   "upstream_id": 9
 }'
 
-curl http://127.0.0.1:9080/api/healthcheck -s | jq .
+curl http://127.0.0.1:9080/api/health -s | jq .
 {
   "message": "Hello world!. Using Python 3.11"
 }
@@ -174,73 +200,9 @@ curl http://127.0.0.1:9080/apisix01/$(source curl-cmds/url_encode.sh ${VT_URL_TO
 ```
 
 
-## /apisix03/* : New implementation all in Python being triggered by single APISIX route
-
-```sh
-
-curl http://127.0.0.1:9180/apisix/admin/routes/10 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '
-{
-   "uri": "/apisix03/*",
-   "name": "03 ipfs url cache",
-   "desc": "Trigger ipfs-url-cache and return verdict from 1 URLValidator",
-   "methods":["GET"],
-   "plugins": {
-      "serverless-post-function": {
-         "_meta": {
-            "priority": 10000
-         },
-         "phase": "access",
-         "functions": [
-            "return function(conf, ctx)
-               local core = require(\"apisix.core\")
-               local url = require(\"socket.url\")
-             
-               local upstream_url_ini = ctx.var.upstream_uri
-               local req_uri_real = ctx.var.real_request_uri
-               local splited_uri = core.utils.split_uri(req_uri_real)
-               local last_uri_part_escaped = splited_uri[#splited_uri]
-               local last_uri_part_unescaped = url.unescape(last_uri_part_escaped)
-               local last_uri_part_b64 = ngx.encode_base64(last_uri_part_unescaped)
-               local last_uri_part_b64_escaped = url.escape(last_uri_part_b64)
-
-               -- override the upstream uri
-               --local upstream_url_fin = upstream_url_ini .. \"/search/ipfsurl/\" .. last_uri_part_b64
-               --local upstream_url_fin = upstream_url_ini .. \"/cache/ipfsurl/\" .. last_uri_part_b64
-               local upstream_url_fin = upstream_url_ini .. \"/cache/ipfsurl/\" .. last_uri_part_b64_escaped
-               ctx.var.upstream_uri = upstream_url_fin
-
-               ngx.log(ngx.ERR, \"req_uri_real: \" .. req_uri_real)
-               ngx.log(ngx.ERR, \"upstream_url_ini: \" .. upstream_url_ini)
-               ngx.log(ngx.ERR, \"upstream_url_fin: \" .. upstream_url_fin)
-               ngx.log(ngx.ERR, \"last_uri_part_escaped: \" .. last_uri_part_escaped)
-               ngx.log(ngx.ERR, \"last_uri_part_unescaped: \" .. last_uri_part_unescaped)
-               ngx.log(ngx.ERR, \"last_uri_part_b64: \" .. last_uri_part_b64)
-               ngx.log(ngx.ERR, \"last_uri_part_b64_escaped: \" .. last_uri_part_b64_escaped)
-            end"
-         ]
-      },
-      "proxy-rewrite": {
-         "host": "localhost:8002",
-         "uri": "/api/ipfsresources",
-         "scheme": "http"
-      }
-   },
-   "upstream_id": 8
-}'
-
-
-VT_API_KEY="your_vt_api_key"
-VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeiffwwcyirxa2hmzq3mxsihjxltlaabxmpo2tjkoboaykemvh63qg4/alltheglory20_officeui.html"
-VT_URL_TO_CHECK="https://ipfs.eth.aragon.network/ipfs/bafybeig2vab5dyxfslradqqcrears2joaijxljtgtdkiykpn7l6uzwkh24/nniOwadd2.html"
-
-curl http://127.0.0.1:9080/apisix03/$(source curl-cmds/url_encode.sh ${VT_URL_TO_CHECK}) -s | jq .
-
-
-```
-
-
-
 ## /apisix04/* :  New implementation all in Python being triggered by single APISIX route
+
+#### 127.0.0.1:9080/apisix04/* -> 0.0.0.0:8002/api/ipfsresources/cache/ipfsurlfull/{ipfsurl_b64_quoted}
 
 ```sh
 
@@ -288,7 +250,7 @@ curl http://127.0.0.1:9180/apisix/admin/routes/11 -H 'X-API-KEY: edd1c9f034335f1
          "scheme": "http"
       }
    },
-   "upstream_id": 8
+   "upstream_id": 9
 }'
 
 
